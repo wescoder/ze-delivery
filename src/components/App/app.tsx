@@ -10,9 +10,7 @@ const routes = {
   '/products*': (): ReactElement<{}> => <Products />,
 }
 
-export const App: SFC<{}> = (): ReactElement<{}> => {
-  const routeResult = useRoutes(routes)
-  return routeResult || <NotFound />
-}
+export const App: SFC<{}> = (): ReactElement<{}> =>
+  useRoutes(routes) || <NotFound />
 
 export default App
