@@ -16,10 +16,12 @@ module.exports = {
   plugins: ['prettier', 'emotion', 'react', 'react-hooks'],
   rules: {
     '@typescript-eslint/indent': ['error', 2],
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'emotion/import-from-emotion': 'error',
     'emotion/jsx-import': 'error',
     'emotion/no-vanilla': 'error',
     'emotion/styled-import': 'error',
+    'react/display-name': 0, // TODO: remove this with better approach
     'react/prop-types': 0,
     'react-hooks/exhaustive-deps': 'warn',
     'react-hooks/rules-of-hooks': 'error',
