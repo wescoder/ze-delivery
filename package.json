@@ -1,0 +1,39 @@
+{
+  "name": "ze-delivery",
+  "version": "1.0.0",
+  "description": "ZX Ventures code challenge web app.",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --mode development --hot",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wescoder/ze-delivery.git"
+  },
+  "author": "Wésley Queiroz <wesley.coder@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wescoder/ze-delivery/issues"
+  },
+  "homepage": "https://github.com/wescoder/ze-delivery#readme",
+  "devDependencies": {
+    "awesome-typescript-loader": "^5.2.1",
+    "html-webpack-plugin": "^3.2.0",
+    "source-map-loader": "^0.2.4",
+    "tslint": "^5.14.0",
+    "tslint-react": "^4.0.0",
+    "tslint-react-hooks": "^2.0.0",
+    "typescript": "^3.3.4000",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1"
+  },
+  "dependencies": {
+    "@types/react": "^16.8.10",
+    "@types/react-dom": "^16.8.3",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}

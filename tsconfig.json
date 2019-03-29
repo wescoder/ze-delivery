@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@ze/*": ["src/*"],
+    },
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "module": "commonjs",
+    "target": "es6",
+    "lib": [
+      "es2015",
+      "es2017",
+      "dom"
+    ],
+    "removeComments": true,
+    "allowSyntheticDefaultImports": false,
+    "jsx": "react",
+    "allowJs": true
+  }
+}
