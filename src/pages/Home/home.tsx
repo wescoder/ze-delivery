@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx, SerializedStyles } from '@emotion/core'
-import { SFC, ReactElement, Fragment as F, ChangeEvent } from 'react'
+import { ReactElement, Fragment as F, ChangeEvent } from 'react'
 import { navigate } from 'hookrouter'
 import { debounce } from 'ts-debounce'
 
@@ -21,10 +21,7 @@ const handleSearch = (e: ChangeEvent<HTMLInputElement>): void => {
   queryApi(e.target.value)
 }
 
-export const Home: SFC<HomeProps> = ({
-  color,
-  name,
-}): ReactElement<HomeProps> => {
+export function Home({ color, name }: HomeProps): ReactElement<HomeProps> {
   return (
     <F>
       <button onClick={_e => navigate('/products')}>products</button>

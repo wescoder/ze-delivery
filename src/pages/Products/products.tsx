@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { SFC, ReactElement, Fragment as F } from 'react'
+import { ReactElement, Fragment as F } from 'react'
 
-export const Products: SFC<{}> = (): ReactElement<{}> => {
+export function Products(): ReactElement<{}> {
   return (
     <F>
       <h1>Products</h1>
