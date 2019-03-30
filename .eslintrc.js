@@ -16,6 +16,7 @@ module.exports = {
   plugins: ['prettier', 'emotion', 'react', 'react-hooks'],
   rules: {
     '@typescript-eslint/indent': ['error', 2],
+    '@typescript-eslint/no-explicit-any': false,
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'emotion/import-from-emotion': 'error',
     'emotion/jsx-import': 'error',

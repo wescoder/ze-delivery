@@ -44,6 +44,6 @@
     "hookrouter": "^1.0.3-beta",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "ts-debounce": "^1.0.0"
+    "use-debounce": "^1.1.1"
   }
 }
