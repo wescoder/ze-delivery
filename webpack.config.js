@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { join, resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 

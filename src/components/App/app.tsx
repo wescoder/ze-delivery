@@ -1,17 +1,18 @@
+import { NotFound } from '@ze/pages/NotFound'
+import { routes } from '@ze/pages/routes'
+import { GraphQL, GraphQLContext } from 'graphql-react'
+import { useRoutes } from 'hookrouter'
 import * as React from 'react'
 import { ReactElement } from 'react'
-import { useRoutes } from 'hookrouter'
-import { Home } from '@ze/pages/Home'
-import NotFound from '@ze/pages/NotFound'
-import Products from '@ze/pages/Products'
 
-const routes = {
-  '/': (): ReactElement<{}> => <Home name='Zé' />,
-  '/products*': (): ReactElement<{}> => <Products />,
-}
+const graphql = new GraphQL()
 
 export function App(): ReactElement<{}> {
-  return useRoutes(routes) || <NotFound />
+  return (
+    <GraphQLContext.Provider value={graphql}>
+      {useRoutes(routes) || <NotFound />}
+    </GraphQLContext.Provider>
+  )
 }
 
 export default App

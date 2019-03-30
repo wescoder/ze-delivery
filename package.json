@@ -40,6 +40,7 @@
     "@emotion/core": "^10.0.10",
     "@types/react": "^16.8.10",
     "@types/react-dom": "^16.8.3",
+    "graphql-react": "^8.1.1",
     "hookrouter": "^1.0.3-beta",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

@@ -15,5 +15,5 @@
     "sourceMap": true,
     "target": "es6"
   },
-  "include": ["./@types/**/*.d.ts"]
+  "exclude": ["**/node_modules/**/*"]
 }
