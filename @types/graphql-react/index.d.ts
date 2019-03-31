@@ -14,12 +14,16 @@ declare module 'graphql-react' {
       }
     }
   }
-  export function useGraphQL(
-    options: UseGraphQLOptions,
-  ): {
+
+  interface UseGraphQLReturn<T = any> {
     cacheKey: string
-    cacheValue?: any
+    cacheValue?: {
+      data: T
+    }
     load(): void
     loading: boolean
   }
+  export function useGraphQL<T = any>(
+    options: UseGraphQLOptions,
+  ): UseGraphQLReturn<T>
 }

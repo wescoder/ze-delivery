@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/wescoder/ze-delivery#readme",
   "devDependencies": {
+    "@types/node": "^11.12.2",
+    "@types/react": "^16.8.10",
+    "@types/react-dom": "^16.8.3",
     "@typescript-eslint/eslint-plugin": "^1.5.0",
     "@typescript-eslint/parser": "^1.5.0",
     "awesome-typescript-loader": "^5.2.1",
@@ -30,20 +33,20 @@
     "eslint-plugin-react-hooks": "^1.6.0",
     "html-webpack-plugin": "^3.2.0",
     "prettier": "^1.16.4",
-    "source-map-loader": "^0.2.4",
     "typescript": "^3.3.4000",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
-    "webpack-dev-server": "^3.2.1"
+    "webpack-dev-server": "^3.2.1",
+    "webpack-dotenv-plugin": "^2.1.0"
   },
   "dependencies": {
     "@emotion/core": "^10.0.10",
-    "@types/react": "^16.8.10",
-    "@types/react-dom": "^16.8.3",
+    "google-maps-api-loader": "^1.1.1",
     "graphql-react": "^8.1.1",
     "hookrouter": "^1.0.3-beta",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-places-autocomplete": "^7.2.1",
     "use-debounce": "^1.1.1"
   }
 }

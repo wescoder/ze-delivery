@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { join, resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const DotenvPlugin = require('webpack-dotenv-plugin')
 
 module.exports = {
   devServer: {
@@ -22,6 +23,10 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html',
+    }),
+    new DotenvPlugin({
+      path: resolve(__dirname, '.env'),
+      sample: resolve(__dirname, '.env.example'),
     }),
   ],
   resolve: {

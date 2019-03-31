@@ -79,3 +79,15 @@ Your code will be under review of the Zx's Global Engineering team. What we will
 - **Tests**
 
 Feel free to implement it the way you feel more confortable :)
+
+## Contributing
+
+### DevTools
+
+You can use the following filter for the network tab in order to filter some commonly unwanted requests:
+
+`-info -websocket -method:OPTIONS -.hot-update.json`
+
+You can use the following filter for the console tab in order to filter some commonly unwanted logs:
+
+`-hmr -wds`

@@ -1,13 +1,11 @@
-export const pocSearchQuery = (): string => `
+export const pocSearchQuery = `
   query pocSearchMethod($now: DateTime!, $algorithm: String!, $lat: String!, $long: String!) {
     pocSearch(now: $now, algorithm: $algorithm, lat: $lat, long: $long) {
-      __typename
       id
       status
       tradingName
       officialName
       deliveryTypes {
-        __typename
         pocDeliveryTypeId
         deliveryTypeId
         price
@@ -15,26 +13,7 @@ export const pocSearchQuery = (): string => `
         subtitle
         active
       }
-      paymentMethods {
-        __typename
-        pocPaymentMethodId
-        paymentMethodId
-        active
-        title
-        subtitle
-      }
-      pocWorkDay {
-        __typename
-        weekDay
-        active
-        workingInterval {
-          __typename
-          openingTime
-          closingTime
-        }
-      }
       address {
-        __typename
         address1
         address2
         number
@@ -44,7 +23,6 @@ export const pocSearchQuery = (): string => `
         coordinates
       }
       phone {
-        __typename
         phoneNumber
       }
     }
