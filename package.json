@@ -42,7 +42,7 @@
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "google-maps-api-loader": "^1.1.1",
-    "graphql-react": "^8.1.1",
+    "graphql-hooks": "^3.4.1",
     "hookrouter": "^1.0.3-beta",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

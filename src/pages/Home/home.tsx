@@ -2,11 +2,9 @@
 import { css, jsx, SerializedStyles } from '@emotion/core'
 import { mapsLoading } from '@ze/index'
 import { pocSearchQuery } from '@ze/pages/Home/queries'
-import { useGraphQL } from 'graphql-react'
+import { useManualQuery } from 'graphql-hooks'
 import { Fragment as F, ReactElement, useEffect, useState } from 'react'
 import PlacesAutocomplete, { geocodeByPlaceId, getLatLng } from 'react-places-autocomplete'
-
-const { GRAPHQL_API_ENDPOINT } = process.env
 
 export interface HomeProps {
   color?: string
@@ -19,108 +17,107 @@ interface PocResponse {
   data: { pocSearch: any }
 }
 
-export function Home({ color, name }: HomeProps): ReactElement<HomeProps> {
-  const [address, setAddress] = useState('')
-  const [lat, setLat] = useState('')
-  const [lng, setLng] = useState('')
+const useMapsLoaded = (): boolean => {
   const [isMapsLoaded, setMapsLoaded] = useState(false)
 
   useEffect(() => {
     mapsLoading.then(() => setMapsLoaded(true))
   }, [])
 
-  const { load: loadQuery, cacheValue: response, loading: loadingQuery } = useGraphQL<PocResponse>({
-    fetchOptionsOverride(options) {
-      options.url = GRAPHQL_API_ENDPOINT
-    },
-    loadOnMount: false,
-    operation: {
-      query: pocSearchQuery,
+  return isMapsLoaded
+}
+
+export function Home({ color, name }: HomeProps): ReactElement<HomeProps> {
+  const [address, setAddress] = useState('')
+  const isMapsLoaded = useMapsLoaded()
+
+  const [fetchQuery, { data: searchResult, loading: loadingQuery }] = useManualQuery(pocSearchQuery)
+
+  const pocResult: any[] = searchResult && searchResult.pocSearch
+
+  const getPoc = async (locationId: string): Promise<{ lat: number; lng: number }> => {
+    const [id]: [string] = await geocodeByPlaceId(locationId)
+    return getLatLng(id)
+  }
+
+  const handleSelectPlace = async (location: string, locationId: string): Promise<void> => {
+    setAddress(location)
+    const { lat, lng } = await getPoc(locationId)
+    fetchQuery({
       variables: {
         algorithm: 'NEAREST',
-        lat,
-        long: lng,
+        lat: lat.toString(),
+        long: lng.toString(),
         now: new Date().toISOString(),
       },
-    },
-  })
-
-  const searchResult = response && response.data && response.data
-
-  const handleSelectPlace = (location: string, locationId: string): void => {
-    setAddress(location)
-    geocodeByPlaceId(locationId).then(([id]: [string]) =>
-      getLatLng(id).then(({ lat, lng }: { lat: number; lng: number }) => {
-        setLat(lat.toString())
-        setLng(lng.toString())
-      }),
-    )
+    })
   }
 
   return (
     <F>
       <h1 css={titleCss(color)}>Hello, {name}!</h1>
-      {isMapsLoaded && (
-        <PlacesAutocomplete
-          highlightFirstSuggestion={true}
-          onChange={setAddress}
-          onSelect={handleSelectPlace}
-          searchOptions={{}}
-          value={address}
-        >
-          {({
-            getInputProps,
-            suggestions,
-            getSuggestionItemProps,
-            loading,
-          }: {
-            getInputProps: any
-            suggestions: any
-            getSuggestionItemProps: any
-            loading: boolean
-          }) => (
-            <F>
-              <input
-                {...getInputProps({
-                  className: 'location-search-input',
-                  placeholder: 'Search Places ...',
-                })}
-              />
-              <div className='autocomplete-dropdown-container'>
-                {loading && <div>Loading...</div>}
-                {suggestions.map((suggestion: any) => {
-                  const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item'
-                  // inline style for demonstration purpose
-                  const style = suggestion.active
-                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                    : { backgroundColor: '#ffffff', cursor: 'pointer' }
-                  return (
-                    <div
-                      {...getSuggestionItemProps(suggestion, {
-                        className,
-                        style,
-                      })}
-                      key={Math.random()}
-                    >
-                      <span>{suggestion.description}</span>
-                    </div>
-                  )
-                })}
-              </div>
-            </F>
-          )}
-        </PlacesAutocomplete>
-      )}
-      <pre>lat: {lat}</pre>
-      <pre>lng: {lng}</pre>
-      {address ? (
-        loadingQuery ? (
-          <strong>Loading...</strong>
-        ) : (
-          <pre>{JSON.stringify(searchResult, null, 2)}</pre>
-        )
+      {isMapsLoaded ? (
+        <F>
+          <PlacesAutocomplete
+            highlightFirstSuggestion={true}
+            onChange={setAddress}
+            onSelect={handleSelectPlace}
+            searchOptions={{}}
+            value={address}
+          >
+            {({
+              getInputProps,
+              suggestions,
+              getSuggestionItemProps,
+              loading,
+            }: {
+              getInputProps: any
+              suggestions: any
+              getSuggestionItemProps: any
+              loading: boolean
+            }) => (
+              <F>
+                <input
+                  {...getInputProps({
+                    className: 'location-search-input',
+                    placeholder: 'Search Places...',
+                  })}
+                />
+                <div className='autocomplete-dropdown-container'>
+                  {loading && <div>Loading search...</div>}
+                  {suggestions.map((suggestion: any) => {
+                    const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item'
+                    const style = suggestion.active
+                      ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                      : { backgroundColor: '#ffffff', cursor: 'pointer' }
+                    return (
+                      <div
+                        {...getSuggestionItemProps(suggestion, {
+                          className,
+                          style,
+                        })}
+                        key={Math.random()}
+                      >
+                        <span>{suggestion.description}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </F>
+            )}
+          </PlacesAutocomplete>
+          {address ? (
+            loadingQuery ? (
+              <strong>Loading result...</strong>
+            ) : (
+              pocResult && pocResult.map(result => <pre key={result.id}>{JSON.stringify(result, null, 2)}</pre>)
+            )
+          ) : (
+            'Type your location'
+          )}{' '}
+        </F>
       ) : (
-        'Type your location'
+        'Loading maps'
       )}
     </F>
   )
